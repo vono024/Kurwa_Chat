@@ -9,6 +9,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/chat/{user}/messages', [MessageController::class, 'getMessages'])->name('chat.messages');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');

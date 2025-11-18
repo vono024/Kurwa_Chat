@@ -112,6 +112,63 @@
             padding: 60px 20px;
             color: #999;
         }
+
+        /* Адаптивність для мобільних */
+        @media (max-width: 768px) {
+            .header {
+                padding: 12px 15px;
+            }
+            .header h1 {
+                font-size: 1.3em;
+            }
+            .container {
+                margin: 20px auto;
+                padding: 0 15px;
+            }
+            .search-box {
+                padding: 15px;
+            }
+            .search-box form {
+                flex-direction: column;
+            }
+            .search-box button {
+                width: 100%;
+                padding: 12px;
+            }
+            .user-card {
+                padding: 15px;
+                flex-wrap: wrap;
+            }
+            .avatar {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3em;
+            }
+            .user-name {
+                font-size: 1.1em;
+            }
+            .chat-btn {
+                width: 100%;
+                text-align: center;
+                margin-top: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 10px 12px;
+            }
+            .back-btn {
+                font-size: 1.3em;
+            }
+            .header h1 {
+                font-size: 1.1em;
+            }
+            .search-box input {
+                padding: 10px 15px;
+                font-size: 0.95em;
+            }
+        }
     </style>
 </head>
 <body>

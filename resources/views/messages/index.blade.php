@@ -5,6 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kurwa Chat - Повідомлення</title>
     <style>
+
+        /* Адаптивність для мобільних */
+        @media (max-width: 768px) {
+            .header {
+                padding: 12px 15px;
+                flex-wrap: wrap;
+            }
+            .header h1 {
+                font-size: 1.3em;
+            }
+            .header-right {
+                gap: 10px;
+                font-size: 0.9em;
+            }
+            .header-right a, .header-right button {
+                padding: 6px 12px;
+                font-size: 0.9em;
+            }
+            .container {
+                margin: 0;
+            }
+            .chat-item {
+                padding: 12px 15px;
+            }
+            .avatar {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1em;
+            }
+            .chat-name {
+                font-size: 1em;
+            }
+            .chat-last-message {
+                font-size: 0.85em;
+            }
+            .no-chats {
+                padding: 40px 15px;
+            }
+            .search-btn {
+                padding: 10px 25px;
+                font-size: 0.95em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 10px 12px;
+            }
+            .header h1 {
+                font-size: 1.2em;
+                width: 100%;
+                margin-bottom: 8px;
+            }
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
+                font-size: 0.85em;
+            }
+            .header-right span {
+                display: none;
+            }
+            .avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 1em;
+            }
+            .chat-item {
+                padding: 10px 12px;
+            }
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -171,8 +242,8 @@
                 @foreach($conversations as $userId => $messages)
                     @php
                         $lastMessage = $messages->last();
-                        $otherUser = $lastMessage->sender_id === auth()->id() 
-                            ? $lastMessage->receiver 
+                        $otherUser = $lastMessage->sender_id === auth()->id()
+                            ? $lastMessage->receiver
                             : $lastMessage->sender;
                         $unreadCount = $messages->where('sender_id', $otherUser->id)
                                                  ->where('is_read', false)
