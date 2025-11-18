@@ -2,9 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\FriendshipController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\UserController;
 
@@ -20,23 +17,13 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/feed', [PostController::class, 'index'])->name('feed');
+    Route::get('/chats', [MessageController::class, 'index'])->name('chats.index');
 
-    // CRUD для публікацій
-    Route::resource('posts', PostController::class);
+    Route::get('/chat/{user}', [MessageController::class, 'show'])->name('chat.show');
 
-    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
-    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+    Route::post('/chat/{user}/send', [MessageController::class, 'store'])->name('message.send');
 
-    Route::post('/users/{user}/friend-request', [FriendshipController::class, 'sendRequest'])->name('friend.request');
-    Route::post('/users/{user}/accept', [FriendshipController::class, 'acceptRequest'])->name('friend.accept');
-    Route::post('/users/{user}/reject', [FriendshipController::class, 'rejectRequest'])->name('friend.reject');
-    Route::delete('/users/{user}/remove', [FriendshipController::class, 'removeFriend'])->name('friend.remove');
+    Route::get('/search', [UserController::class, 'search'])->name('users.search');
 
-    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
-    Route::get('/messages/{user}', [MessageController::class, 'show'])->name('messages.show');
-    Route::post('/messages/{user}', [MessageController::class, 'store'])->name('messages.store');
-
-    Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
-    Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+    Route::get('/profile/{user}', [UserController::class, 'show'])->name('user.profile');
 });

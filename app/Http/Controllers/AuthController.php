@@ -32,7 +32,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('feed');
+        return redirect()->route('chats.index');
     }
 
     public function showLogin()
@@ -49,7 +49,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('feed');
+            return redirect()->intended('chats');
         }
 
         return back()->withErrors([
