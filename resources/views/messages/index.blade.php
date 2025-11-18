@@ -3,279 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kurwa Chat - Повідомлення</title>
-    <style>
-
-        /* Адаптивність для мобільних */
-        @media (max-width: 768px) {
-            .header {
-                padding: 12px 15px;
-                flex-wrap: wrap;
-            }
-            .header h1 {
-                font-size: 1.3em;
-            }
-            .header-right {
-                gap: 10px;
-                font-size: 0.9em;
-            }
-            .header-right a, .header-right button {
-                padding: 6px 12px;
-                font-size: 0.9em;
-            }
-            .container {
-                margin: 0;
-            }
-            .chat-item {
-                padding: 12px 15px;
-            }
-            .avatar {
-                width: 45px;
-                height: 45px;
-                font-size: 1.1em;
-            }
-            .chat-name {
-                font-size: 1em;
-            }
-            .chat-last-message {
-                font-size: 0.85em;
-            }
-            .no-chats {
-                padding: 40px 15px;
-            }
-            .search-btn {
-                padding: 10px 25px;
-                font-size: 0.95em;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header {
-                padding: 10px 12px;
-            }
-            .header h1 {
-                font-size: 1.2em;
-                width: 100%;
-                margin-bottom: 8px;
-            }
-            .header-right {
-                width: 100%;
-                justify-content: space-between;
-                font-size: 0.85em;
-            }
-            .header-right span {
-                display: none;
-            }
-            .avatar {
-                width: 40px;
-                height: 40px;
-                font-size: 1em;
-            }
-            .chat-item {
-                padding: 10px 12px;
-            }
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f2f5;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .header h1 {
-            font-size: 1.5em;
-        }
-        .header-right {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-        .header-right a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.2);
-            transition: all 0.3s;
-        }
-        .header-right a:hover {
-            background: rgba(255,255,255,0.3);
-        }
-        .header-right button {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .header-right button:hover {
-            background: rgba(255,255,255,0.3);
-        }
-        .container {
-            flex: 1;
-            max-width: 1200px;
-            width: 100%;
-            margin: 0 auto;
-            display: flex;
-            background: white;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-        .chats-list {
-            width: 100%;
-            border-right: 1px solid #e0e0e0;
-            overflow-y: auto;
-        }
-        .chat-item {
-            padding: 15px 20px;
-            border-bottom: 1px solid #f0f0f0;
-            cursor: pointer;
-            transition: background 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-            color: inherit;
-        }
-        .chat-item:hover {
-            background: #f8f9fa;
-        }
-        .avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.2em;
-            flex-shrink: 0;
-        }
-        .chat-info {
-            flex: 1;
-            min-width: 0;
-        }
-        .chat-name {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 4px;
-        }
-        .chat-last-message {
-            color: #666;
-            font-size: 0.9em;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .chat-time {
-            color: #999;
-            font-size: 0.85em;
-        }
-        .no-chats {
-            text-align: center;
-            padding: 60px 20px;
-            color: #999;
-        }
-        .no-chats h3 {
-            margin-bottom: 10px;
-            color: #666;
-        }
-        .search-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 30px;
-            background: #667eea;
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            transition: all 0.3s;
-        }
-        .search-btn:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
-        }
-        .unread-badge {
-            background: #667eea;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 0.8em;
-            font-weight: 600;
-        }
-    </style>
+    <title>Kurwa Chat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="header">
-        <h1>💬 Kurwa Chat</h1>
-        <div class="header-right">
-            <span>{{ auth()->user()->name }}</span>
-            <a href="{{ route('users.search') }}">🔍 Пошук</a>
-            <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+<body class="bg-gray-100 h-screen flex flex-col">
+<header class="bg-gradient-to-r from-purple-600 to-purple-700 text-white p-4 shadow-lg">
+    <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-xl md:text-2xl font-bold">💬 Kurwa Chat</h1>
+        <div class="hidden md:flex gap-3 items-center">
+            <span class="font-medium">{{ auth()->user()->name }}</span>
+            <a href="{{ route('users.search') }}" class="px-4 py-2 bg-white/20 rounded-lg hover:bg-white/30 transition">🔍 Пошук</a>
+            <a href="{{ route('profile.edit') }}" class="px-4 py-2 bg-white/20 rounded-lg hover:bg-white/30 transition">Профіль</a>
+            <form method="POST" action="{{ route('logout') }}" class="inline">
                 @csrf
-                <button type="submit">Вийти</button>
+                <button type="submit" class="px-4 py-2 bg-white/20 rounded-lg hover:bg-white/30 transition">Війти</button>
             </form>
         </div>
+        <button onclick="toggleMenu()" class="md:hidden p-2">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+        </button>
     </div>
+    <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-2">
+        <a href="{{ route('users.search') }}" class="block px-4 py-2 bg-white/20 rounded-lg">🔍 Пошук</a>
+        <a href="{{ route('profile.edit') }}" class="block px-4 py-2 bg-white/20 rounded-lg">Профіль</a>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="w-full text-left px-4 py-2 bg-white/20 rounded-lg">Вийти</button>
+        </form>
+    </div>
+</header>
 
-    <div class="container">
-        <div class="chats-list">
-            @if(isset($conversations) && $conversations->count() > 0)
-                @foreach($conversations as $userId => $messages)
-                    @php
-                        $lastMessage = $messages->last();
-                        $otherUser = $lastMessage->sender_id === auth()->id()
-                            ? $lastMessage->receiver
-                            : $lastMessage->sender;
-                        $unreadCount = $messages->where('sender_id', $otherUser->id)
-                                                 ->where('is_read', false)
-                                                 ->count();
-                    @endphp
-                    <a href="{{ route('chat.show', $otherUser) }}" class="chat-item">
-                        <div class="avatar">
+<div class="flex-1 overflow-hidden">
+    <div id="chatsList" class="h-full max-w-5xl mx-auto bg-white shadow-xl overflow-y-auto">
+        @if(isset($conversations) && $conversations->count() > 0)
+            @foreach($conversations as $userId => $messages)
+                @php
+                    $lastMessage = $messages->last();
+                    $otherUser = $lastMessage->sender_id === auth()->id() ? $lastMessage->receiver : $lastMessage->sender;
+                    $unreadCount = $messages->where('sender_id', $otherUser->id)->where('is_read', false)->count();
+                @endphp
+                <a href="{{ route('chat.show', $otherUser) }}" class="chat-item flex items-center gap-4 p-4 border-b hover:bg-gray-50 transition" data-user-id="{{ $otherUser->id }}">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center text-white font-bold text-xl flex-shrink-0 overflow-hidden">
+                        @if($otherUser->avatar)
+                            <img src="{{ asset('storage/' . $otherUser->avatar) }}" class="w-full h-full object-cover" alt="Avatar">
+                        @else
                             {{ strtoupper(substr($otherUser->name, 0, 1)) }}
-                        </div>
-                        <div class="chat-info">
-                            <div class="chat-name">{{ $otherUser->name }}</div>
-                            <div class="chat-last-message">
-                                {{ $lastMessage->sender_id === auth()->id() ? 'Ви: ' : '' }}
-                                {{ Str::limit($lastMessage->content, 50) }}
-                            </div>
-                        </div>
-                        <div style="text-align: right;">
-                            <div class="chat-time">{{ $lastMessage->created_at->format('H:i') }}</div>
-                            @if($unreadCount > 0)
-                                <div class="unread-badge">{{ $unreadCount }}</div>
-                            @endif
-                        </div>
-                    </a>
-                @endforeach
-            @else
-                <div class="no-chats">
-                    <h3>Немає активних чатів</h3>
-                    <p>Знайдіть користувачів по номеру телефону і почніть спілкуватися!</p>
-                    <a href="{{ route('users.search') }}" class="search-btn">Знайти користувачів</a>
-                </div>
-            @endif
-        </div>
+                        @endif
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-semibold text-gray-800 truncate chat-name">{{ $otherUser->name }}</h3>
+                        <p class="text-sm text-gray-600 truncate chat-last-message">
+                            {{ $lastMessage->sender_id === auth()->id() ? 'Ви: ' : '' }}
+                            {{ Str::limit($lastMessage->content, 50) }}
+                        </p>
+                    </div>
+                    <div class="text-right flex-shrink-0">
+                        <p class="text-xs text-gray-500 chat-time">{{ $lastMessage->created_at->format('H:i') }}</p>
+                        @if($unreadCount > 0)
+                            <span class="inline-block mt-1 px-2 py-0.5 bg-purple-600 text-white text-xs rounded-full chat-unread">{{ $unreadCount }}</span>
+                        @endif
+                    </div>
+                </a>
+            @endforeach
+        @else
+            <div id="noChats" class="text-center py-20 px-6">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-4">Немає активних чатів</h3>
+                <p class="text-gray-500 mb-8">Знайдіть користувачів і почніть спілкуватися!</p>
+                <a href="{{ route('users.search') }}" class="inline-block px-8 py-3 bg-purple-600 text-white rounded-full font-semibold hover:bg-purple-700 transition transform hover:-translate-y-0.5">
+                    Знайти користувачів
+                </a>
+            </div>
+        @endif
     </div>
+</div>
+
+<script>
+    const authUserId = {{ auth()->id() }};
+
+    function toggleMenu() {
+        document.getElementById('mobileMenu').classList.toggle('hidden');
+    }
+
+    function formatTime(dateString) {
+        const date = new Date(dateString);
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        return `${hours}:${minutes}`;
+    }
+
+    async function loadChats() {
+        try {
+            const response = await fetch('/api/chats');
+            const data = await response.json();
+
+            if (data.conversations && data.conversations.length > 0) {
+                updateChatsList(data.conversations);
+            }
+        } catch (error) {
+            console.error('Помилка завантаження чатів:', error);
+        }
+    }
+
+    function updateChatsList(conversations) {
+        const chatsList = document.getElementById('chatsList');
+        const noChats = document.getElementById('noChats');
+
+        if (noChats) {
+            noChats.remove();
+        }
+
+        conversations.forEach(conv => {
+            const existingChat = document.querySelector(`[data-user-id="${conv.other_user.id}"]`);
+
+            if (existingChat) {
+                const lastMessageEl = existingChat.querySelector('.chat-last-message');
+                const timeEl = existingChat.querySelector('.chat-time');
+                const unreadEl = existingChat.querySelector('.chat-unread');
+
+                lastMessageEl.innerHTML = `${conv.is_sent ? 'Ви: ' : ''}${conv.last_message.substring(0, 50)}${conv.last_message.length > 50 ? '...' : ''}`;
+                timeEl.textContent = formatTime(conv.last_message_time);
+
+                if (conv.unread_count > 0) {
+                    if (unreadEl) {
+                        unreadEl.textContent = conv.unread_count;
+                    } else {
+                        const parentDiv = timeEl.parentElement;
+                        const badge = document.createElement('span');
+                        badge.className = 'inline-block mt-1 px-2 py-0.5 bg-purple-600 text-white text-xs rounded-full chat-unread';
+                        badge.textContent = conv.unread_count;
+                        parentDiv.appendChild(badge);
+                    }
+                } else if (unreadEl) {
+                    unreadEl.remove();
+                }
+
+                chatsList.prepend(existingChat);
+            } else {
+                const newChat = createChatElement(conv);
+                chatsList.insertBefore(newChat, chatsList.firstChild);
+            }
+        });
+    }
+
+    function createChatElement(conv) {
+        const chat = document.createElement('a');
+        chat.href = `/chat/${conv.other_user.id}`;
+        chat.className = 'chat-item flex items-center gap-4 p-4 border-b hover:bg-gray-50 transition';
+        chat.setAttribute('data-user-id', conv.other_user.id);
+
+        chat.innerHTML = `
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center text-white font-bold text-xl flex-shrink-0 overflow-hidden">
+                    ${conv.other_user.avatar ?
+            `<img src="/storage/${conv.other_user.avatar}" class="w-full h-full object-cover" alt="Avatar">` :
+            conv.other_user.name.charAt(0).toUpperCase()
+        }
+                </div>
+                <div class="flex-1 min-w-0">
+                    <h3 class="font-semibold text-gray-800 truncate chat-name">${conv.other_user.name}</h3>
+                    <p class="text-sm text-gray-600 truncate chat-last-message">
+                        ${conv.is_sent ? 'Ви: ' : ''}${conv.last_message.substring(0, 50)}${conv.last_message.length > 50 ? '...' : ''}
+                    </p>
+                </div>
+                <div class="text-right flex-shrink-0">
+                    <p class="text-xs text-gray-500 chat-time">${formatTime(conv.last_message_time)}</p>
+                    ${conv.unread_count > 0 ? `<span class="inline-block mt-1 px-2 py-0.5 bg-purple-600 text-white text-xs rounded-full chat-unread">${conv.unread_count}</span>` : ''}
+                </div>
+            `;
+
+        return chat;
+    }
+
+    setInterval(loadChats, 3000);
+</script>
 </body>
 </html>

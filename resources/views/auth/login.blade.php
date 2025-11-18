@@ -4,115 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вхід - Kurwa Chat</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .form-container {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            width: 100%;
-            max-width: 450px;
-        }
-        h2 {
-            color: #333;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            color: #555;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1em;
-            transition: border-color 0.3s;
-        }
-        input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-        .error {
-            color: #e74c3c;
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-        .btn {
-            width: 100%;
-            padding: 15px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .btn:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
-        }
-        .link {
-            text-align: center;
-            margin-top: 20px;
-            color: #666;
-        }
-        .link a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<div class="form-container">
-    <h2>Вхід</h2>
+<body class="bg-gradient-to-br from-purple-500 to-purple-700 min-h-screen flex items-center justify-center p-5">
+<div class="bg-white rounded-3xl shadow-2xl w-full max-w-md p-8 md:p-10">
+    <h2 class="text-3xl font-bold text-gray-800 text-center mb-8">Вхід</h2>
+
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        <div class="form-group">
-            <label>Email</label>
-            <input type="email" name="email" value="{{ old('email') }}" required>
+        <div class="mb-6">
+            <label class="block text-gray-700 font-medium mb-2">Email</label>
+            <input type="email" name="email" value="{{ old('email') }}" required
+                   class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-purple-500 transition">
             @error('email')
-            <div class="error">{{ $message }}</div>
+            <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
             @enderror
         </div>
 
-        <div class="form-group">
-            <label>Пароль</label>
-            <input type="password" name="password" required>
+        <div class="mb-6">
+            <label class="block text-gray-700 font-medium mb-2">Пароль</label>
+            <input type="password" name="password" required
+                   class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-purple-500 transition">
             @error('password')
-            <div class="error">{{ $message }}</div>
+            <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
             @enderror
         </div>
 
-        <button type="submit" class="btn">Увійти</button>
+        <button type="submit"
+                class="w-full bg-purple-600 text-white py-3 rounded-xl font-semibold hover:bg-purple-700 transition transform hover:-translate-y-0.5 shadow-lg">
+            Увійти
+        </button>
     </form>
 
-    <div class="link">
-        Немає акаунта? <a href="{{ route('register') }}">Зареєструватись</a>
-    </div>
+    <p class="text-center text-gray-600 mt-6">
+        Немає акаунта? <a href="{{ route('register') }}" class="text-purple-600 font-semibold hover:underline">Зареєструватись</a>
+    </p>
 </div>
 </body>
 </html>

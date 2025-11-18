@@ -50,20 +50,13 @@ class MessageController extends Controller
             'content' => 'required|string|max:1000',
         ]);
 
-        $message = Message::create([
+        Message::create([
             'sender_id' => auth()->id(),
             'receiver_id' => $user->id,
             'content' => $request->content,
         ]);
 
-        if ($request->expectsJson()) {
-            return response()->json([
-                'success' => true,
-                'message' => $message
-            ]);
-        }
-
-        return back();
+        return redirect()->route('chat.show', $user);
     }
 
     public function getMessages(User $user)
@@ -84,6 +77,51 @@ class MessageController extends Controller
         return response()->json([
             'messages' => $messages,
             'auth_id' => auth()->id()
+        ]);
+    }
+
+    public function getChats()
+    {
+        $userId = auth()->id();
+
+        $messages = Message::where('sender_id', $userId)
+            ->orWhere('receiver_id', $userId)
+            ->with(['sender', 'receiver'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $conversations = $messages->groupBy(function ($message) use ($userId) {
+            return $message->sender_id === $userId
+                ? $message->receiver_id
+                : $message->sender_id;
+        })
+            ->map(function ($messages) use ($userId) {
+                $lastMessage = $messages->first();
+                $otherUser = $lastMessage->sender_id === $userId
+                    ? $lastMessage->receiver
+                    : $lastMessage->sender;
+
+                $unreadCount = $messages->where('sender_id', $otherUser->id)
+                    ->where('receiver_id', $userId)
+                    ->where('is_read', false)
+                    ->count();
+
+                return [
+                    'other_user' => [
+                        'id' => $otherUser->id,
+                        'name' => $otherUser->name,
+                        'avatar' => $otherUser->avatar,
+                    ],
+                    'last_message' => $lastMessage->content,
+                    'last_message_time' => $lastMessage->created_at->toIso8601String(),
+                    'is_sent' => $lastMessage->sender_id === $userId,
+                    'unread_count' => $unreadCount,
+                ];
+            })
+            ->values();
+
+        return response()->json([
+            'conversations' => $conversations
         ]);
     }
 }

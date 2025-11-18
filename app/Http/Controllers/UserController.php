@@ -25,4 +25,22 @@ class UserController extends Controller
         $posts = $user->posts()->latest()->paginate(5);
         return view('users.show', compact('user', 'posts'));
     }
+
+    public function searchAjax(Request $request)
+    {
+        $query = $request->input('query');
+
+        if (!$query) {
+            return response()->json(['users' => []]);
+        }
+
+        $users = User::where('name', 'like', "%{$query}%")
+            ->orWhere('email', 'like', "%{$query}%")
+            ->orWhere('phone', 'like', "%{$query}%")
+            ->where('id', '!=', auth()->id())
+            ->limit(10)
+            ->get();
+
+        return response()->json(['users' => $users]);
+    }
 }

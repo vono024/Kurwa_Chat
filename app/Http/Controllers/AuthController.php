@@ -49,12 +49,12 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('chats');
+            return redirect()->route('chats.index');
         }
 
         return back()->withErrors([
             'email' => 'Невірні дані для входу.',
-        ]);
+        ])->withInput();
     }
 
     public function logout(Request $request)

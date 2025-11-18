@@ -4,206 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Пошук користувачів</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f2f5;
-            min-height: 100vh;
-        }
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .back-btn {
-            color: white;
-            text-decoration: none;
-            font-size: 1.5em;
-        }
-        .container {
-            max-width: 800px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-        .search-box {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .search-box form {
-            display: flex;
-            gap: 10px;
-        }
-        .search-box input {
-            flex: 1;
-            padding: 12px 20px;
-            border: 2px solid #ddd;
-            border-radius: 25px;
-            font-size: 1em;
-        }
-        .search-box button {
-            padding: 12px 30px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        .user-card {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.5em;
-        }
-        .user-info {
-            flex: 1;
-        }
-        .user-name {
-            font-size: 1.2em;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 4px;
-        }
-        .user-phone {
-            color: #666;
-        }
-        .chat-btn {
-            padding: 10px 25px;
-            background: #667eea;
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            transition: all 0.3s;
-        }
-        .chat-btn:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
-        }
-        .no-results {
-            text-align: center;
-            padding: 60px 20px;
-            color: #999;
-        }
-
-        /* Адаптивність для мобільних */
-        @media (max-width: 768px) {
-            .header {
-                padding: 12px 15px;
-            }
-            .header h1 {
-                font-size: 1.3em;
-            }
-            .container {
-                margin: 20px auto;
-                padding: 0 15px;
-            }
-            .search-box {
-                padding: 15px;
-            }
-            .search-box form {
-                flex-direction: column;
-            }
-            .search-box button {
-                width: 100%;
-                padding: 12px;
-            }
-            .user-card {
-                padding: 15px;
-                flex-wrap: wrap;
-            }
-            .avatar {
-                width: 50px;
-                height: 50px;
-                font-size: 1.3em;
-            }
-            .user-name {
-                font-size: 1.1em;
-            }
-            .chat-btn {
-                width: 100%;
-                text-align: center;
-                margin-top: 10px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header {
-                padding: 10px 12px;
-            }
-            .back-btn {
-                font-size: 1.3em;
-            }
-            .header h1 {
-                font-size: 1.1em;
-            }
-            .search-box input {
-                padding: 10px 15px;
-                font-size: 0.95em;
-            }
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<div class="header">
-    <a href="{{ route('chats.index') }}" class="back-btn">←</a>
-    <h1>Пошук користувачів</h1>
-</div>
-
-<div class="container">
-    <div class="search-box">
-        <form method="GET" action="{{ route('users.search') }}">
-            <input type="text" name="query" placeholder="Введіть ім'я або номер телефону..." value="{{ request('query') }}" required>
-            <button type="submit">🔍 Шукати</button>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+<header class="bg-gradient-to-r from-purple-600 to-purple-700 text-white p-4 shadow-lg">
+    <div class="container mx-auto flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <a href="{{ route('chats.index') }}" class="text-2xl hover:scale-110 transition">←</a>
+            <h1 class="text-xl md:text-2xl font-bold">🔍 Пошук користувачів</h1>
+        </div>
+        <div class="hidden md:flex gap-3 items-center">
+            <a href="{{ route('profile.edit') }}" class="px-4 py-2 bg-white/20 rounded-lg hover:bg-white/30 transition">⚙️ Профіль</a>
+            <form method="POST" action="{{ route('logout') }}" class="inline">
+                @csrf
+                <button type="submit" class="px-4 py-2 bg-white/20 rounded-lg hover:bg-white/30 transition">Вийти</button>
+            </form>
+        </div>
+        <button onclick="toggleMenu()" class="md:hidden p-2">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+        </button>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-2">
+        <a href="{{ route('profile.edit') }}" class="block px-4 py-2 bg-white/20 rounded-lg">⚙️ Профіль</a>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="w-full text-left px-4 py-2 bg-white/20 rounded-lg">Вийти</button>
         </form>
     </div>
+</header>
 
-    @if(isset($users))
-        @if($users->count() > 0)
-            @foreach($users as $user)
-                <div class="user-card">
-                    <div class="avatar">{{ strtoupper(substr($user->name, 0, 1)) }}</div>
-                    <div class="user-info">
-                        <div class="user-name">{{ $user->name }}</div>
-                        <div class="user-phone">{{ $user->phone }}</div>
-                    </div>
-                    <a href="{{ route('chat.show', $user) }}" class="chat-btn">Написати</a>
-                </div>
-            @endforeach
-        @else
-            <div class="no-results">
-                <h3>Нічого не знайдено</h3>
-                <p>Спробуйте інший запит</p>
-            </div>
-        @endif
-    @endif
+<div class="container mx-auto px-4 py-6 max-w-4xl flex-1">
+    <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+        <input type="text" id="searchInput" placeholder="Введіть ім'я або номер телефону..." autofocus
+               class="w-full px-6 py-4 border-2 border-gray-300 rounded-full text-lg focus:outline-none focus:border-purple-500 transition">
+    </div>
+
+    <div id="searchResults"></div>
 </div>
+
+<script>
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+    let searchTimeout;
+
+    searchInput.addEventListener('input', () => {
+        clearTimeout(searchTimeout);
+        const query = searchInput.value.trim();
+
+        if (!query) {
+            searchResults.innerHTML = '';
+            return;
+        }
+
+        searchTimeout = setTimeout(() => {
+            searchUsers(query);
+        }, 500);
+    });
+
+    async function searchUsers(query) {
+        searchResults.innerHTML = '<div class="text-center py-8"><div class="inline-block w-8 h-8 border-4 border-purple-600 border-t-transparent rounded-full animate-spin"></div></div>';
+
+        try {
+            const response = await fetch(`/search/users?query=${encodeURIComponent(query)}`);
+            const data = await response.json();
+
+            if (data.users.length === 0) {
+                searchResults.innerHTML = `
+                        <div class="bg-white rounded-2xl shadow-lg p-12 text-center">
+                            <svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                            <h3 class="text-xl font-semibold text-gray-700 mb-2">Нічого не знайдено</h3>
+                            <p class="text-gray-500">Спробуйте інший запит</p>
+                        </div>
+                    `;
+                return;
+            }
+
+            searchResults.innerHTML = data.users.map(user => `
+                    <div class="bg-white rounded-2xl shadow-lg p-5 mb-4 flex items-center gap-4 hover:shadow-xl transition transform hover:-translate-y-1">
+                        <div class="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center text-white font-bold text-xl flex-shrink-0 overflow-hidden">
+                            ${user.avatar ? `<img src="/storage/${user.avatar}" class="w-full h-full object-cover" alt="Avatar">` : user.name.charAt(0).toUpperCase()}
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-lg font-semibold text-gray-800 truncate">${user.name}</h3>
+                            <p class="text-sm text-gray-600 truncate">${user.phone}</p>
+                        </div>
+                        <a href="/chat/${user.id}" class="px-6 py-2 bg-purple-600 text-white rounded-full font-semibold hover:bg-purple-700 transition whitespace-nowrap">
+                            Написати
+                        </a>
+                    </div>
+                `).join('');
+        } catch (error) {
+            console.error('Помилка:', error);
+            searchResults.innerHTML = `
+                    <div class="bg-white rounded-2xl shadow-lg p-12 text-center">
+                        <h3 class="text-xl font-semibold text-red-600 mb-2">Помилка</h3>
+                        <p class="text-gray-500">Спробуйте ще раз</p>
+                    </div>
+                `;
+        }
+    }
+
+    function toggleMenu() {
+        document.getElementById('mobileMenu').classList.toggle('hidden');
+    }
+</script>
 </body>
 </html>
